@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: kotlin-kafka
+
+  datasource:
+    url: jdbc:h2:mem:test;MODE=MYSQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        show_sql: false
+        jdbc:
+          log:
+            bindings: true
+    open-in-view: false
+
+  sql:
+    init:
+      mode: never
+
+  kafka:
+    consumer:
+      group-id: order-processing-group-test
+      dlt-group-id: order-dlt-group-test
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.json.trusted.packages: "middleware.messaging.kafka.sync.adapter.out.kafka.event"
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+kafka:
+  consumer:
+    retry:
+      max-attempts: 3
+      backoff-interval-ms: 1000
+
+logging:
+  level:
+    org.springframework: WARN
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE

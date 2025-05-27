@@ -4,6 +4,5 @@ import org.apache.kafka.clients.consumer.ConsumerRecord
 
 data class KafkaFallbackLoggingCommand(
     val record: ConsumerRecord<*, *>,
-    val consumerException: Exception,
-    val dltException: RuntimeException,
+    val exception: Exception,
 )

@@ -11,14 +11,12 @@ class KafkaFallbackLoggingService(
         fallbackJpaRepository.save(
             FailedMessageJpaEntity(
                 topic = command.record.topic(),
-                key = command.record.key()?.toString(),
-                value = command.record.value()?.toString(),
+                messageKey = command.record.key()?.toString(),
+                messageValue = command.record.value()?.toString(),
                 partition = command.record.partition(),
-                offset = command.record.offset(),
-                consumerErrorMessage = command.consumerException.message,
-                consumerErrorStackTrace = command.consumerException.stackTraceToString(),
-                dltErrorMessage = command.dltException.message,
-                dltErrorStackTrace = command.dltException.stackTraceToString(),
+                messageOffset = command.record.offset(),
+                errorMessage = command.exception.message,
+                errorStackTrace = command.exception.stackTraceToString(),
             )
         )
     }

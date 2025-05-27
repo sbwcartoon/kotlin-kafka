@@ -14,31 +14,25 @@ class FailedMessageJpaEntity(
     val topic: String,
 
     @Column(nullable = true)
-    val key: String?,
+    val messageKey: String?,
 
     @Column(nullable = true)
-    val value: String?,
+    val messageValue: String?,
 
     @Column(nullable = false)
     val partition: Int,
 
     @Column(nullable = false)
-    val offset: Long,
+    val messageOffset: Long,
+
+    @Column(nullable = true)
+    val errorMessage: String?,
+
+    @Column(nullable = false)
+    val errorStackTrace: String,
 
     @Column(nullable = false, updatable = false)
     var loggedAt: LocalDateTime? = null,
-
-    @Column(nullable = true)
-    val consumerErrorMessage: String?,
-
-    @Column(nullable = false)
-    val consumerErrorStackTrace: String,
-
-    @Column(nullable = true)
-    val dltErrorMessage: String?,
-
-    @Column(nullable = false)
-    val dltErrorStackTrace: String,
 ) {
     @PrePersist
     fun setCreatedAtIfNull() {

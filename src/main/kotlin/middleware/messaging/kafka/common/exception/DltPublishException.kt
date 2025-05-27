@@ -1,5 +1,5 @@
 package middleware.messaging.kafka.common.exception
 
 class DltPublishException(
-    e: RuntimeException,
+    e: Exception,
 ) : RuntimeException(e.message)

@@ -45,15 +45,13 @@ class KafkaConsumerConfig(
     }
 
     fun defaultErrorHandler(kafkaTemplate: KafkaTemplate<Any, Any>): DefaultErrorHandler {
-        val recoverer = DeadLetterPublishingRecoverer(kafkaTemplate) { record, consumerException ->
-            val topicPartition = try {
-                TopicPartition(record.topic() + ".DLT", record.partition())
-            } catch (dltException: RuntimeException) {
-                kafkaFallbackLoggingUseCase.save(KafkaFallbackLoggingCommand(record, consumerException, dltException))
-                throw DltPublishException(dltException)
+        val recoverer = DeadLetterPublishingRecoverer(kafkaTemplate) { record, e ->
+            if (record.topic().endsWith(".DLT")) {
+                kafkaFallbackLoggingUseCase.save(KafkaFallbackLoggingCommand(record, e))
+                throw DltPublishException(e)
             }
 
-            topicPartition
+            TopicPartition("${record.topic()}.DLT", record.partition())
         }
         val backoff = FixedBackOff(interval, maxAttempts)
         val errorHandler = DefaultErrorHandler(recoverer, backoff)

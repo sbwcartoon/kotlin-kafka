@@ -1,6 +1,7 @@
 package middleware.messaging.kafka.integration.testfixture
 
 import middleware.messaging.kafka.sync.adapter.out.kafka.event.OrderCreatedEvent
+import middleware.messaging.kafka.sync.application.port.`in`.command.CreateOrderCommand
 import middleware.messaging.kafka.sync.domain.vo.OrderId
 import middleware.messaging.kafka.sync.domain.vo.ProductId
 import middleware.messaging.kafka.sync.domain.vo.Quantity
@@ -17,6 +18,14 @@ class IntegrationTestFixture {
             productId = ProductId.generate(),
             quantity = Quantity(2),
             createdAt = LocalDateTime.now(),
+        )
+    }
+
+    fun generateCreateOrderCommand(): CreateOrderCommand {
+        return CreateOrderCommand(
+            userId = UserId.generate(),
+            productId = ProductId.generate(),
+            quantity = Quantity(2),
         )
     }
 }

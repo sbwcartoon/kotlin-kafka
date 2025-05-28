@@ -6,4 +6,5 @@ import middleware.messaging.kafka.sync.domain.vo.OrderId
 interface OrderRepository {
     fun save(order: Order): Order
     fun findById(orderId: OrderId): Order?
+    fun findAll(): List<Order>
 }

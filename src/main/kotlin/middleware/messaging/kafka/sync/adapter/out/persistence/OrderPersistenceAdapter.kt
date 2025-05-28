@@ -23,4 +23,9 @@ class OrderPersistenceAdapter(
             .map { OrderJpaMapper.toDomain(it) }
             .orElse(null)
     }
+
+    override fun findAll(): List<Order> {
+        return orderJpaRepository.findAll()
+            .map { OrderJpaMapper.toDomain(it) }
+    }
 }

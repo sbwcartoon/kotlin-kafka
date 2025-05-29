@@ -1,4 +1,4 @@
-package middleware.messaging.kafka.integration.testfixture
+package middleware.messaging.kafka.sync.testfixture
 
 import middleware.messaging.kafka.sync.adapter.out.kafka.event.OrderCreatedEvent
 import middleware.messaging.kafka.sync.application.port.`in`.command.CreateOrderCommand

@@ -1,4 +1,4 @@
-package middleware.messaging.kafka.integration.config
+package middleware.messaging.kafka.sync.config
 
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.kafka.test.context.EmbeddedKafka

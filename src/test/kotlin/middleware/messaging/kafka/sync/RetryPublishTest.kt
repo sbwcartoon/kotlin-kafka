@@ -1,4 +1,4 @@
-package middleware.messaging.kafka.integration
+package middleware.messaging.kafka.sync
 
 import com.ninjasquad.springmockk.MockkBean
 import io.kotest.assertions.throwables.shouldThrow
@@ -6,8 +6,8 @@ import io.kotest.core.spec.style.BehaviorSpec
 import io.mockk.every
 import io.mockk.verify
 import middleware.messaging.kafka.common.config.RetryableConfig
-import middleware.messaging.kafka.integration.config.EmbeddedKafkaForTest
-import middleware.messaging.kafka.integration.testfixture.IntegrationTestFixture
+import middleware.messaging.kafka.sync.config.EmbeddedKafkaForTest
+import middleware.messaging.kafka.sync.testfixture.IntegrationTestFixture
 import middleware.messaging.kafka.sync.adapter.out.kafka.event.OrderCreatedEvent
 import middleware.messaging.kafka.sync.adapter.out.kafka.exception.OrderEventPublishErrorException
 import middleware.messaging.kafka.sync.application.port.`in`.CreateOrderUseCase
